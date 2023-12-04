@@ -34,6 +34,7 @@ view: flights {
   dimension: distance {
     type: number
     sql: ${TABLE}.distance ;;
+    drill_fields: [destination, origin, origin, flight_num]
   }
   dimension: diverted {
     type: string
