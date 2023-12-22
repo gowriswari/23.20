@@ -34,6 +34,11 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
+  dimension: looker_image {
+    type: string
+    sql: ${TABLE}.sale_price;;
+    html: <img src="https://storage.googleapis.com/gygygyihijooojooooj/cost_trends_top_services.jpeg" /> ;;
+  }
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
