@@ -110,6 +110,9 @@ explore: orders {
 }
 
 explore: order_items {
+  always_filter: {
+    filters: [users.gender:"f"]
+  }
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
