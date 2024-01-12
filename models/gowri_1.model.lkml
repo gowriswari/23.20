@@ -9,6 +9,13 @@ datagroup: gowri_1_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+
+datagroup: hourly {
+  sql_trigger: select substring(sysdate, 1, 13);;
+  max_cache_age: "1 hour"
+}
+
+
 persist_with: gowri_1_default_datagroup
 
 explore: billion_orders {
