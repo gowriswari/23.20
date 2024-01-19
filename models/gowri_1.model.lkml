@@ -4,6 +4,7 @@ connection: "thelook"
 include: "/views/**/*.view.lkml"
 include: "/derived_testing.view.lkml"
 include: "/sql_runner_query.view.lkml"
+include: "/locale_test_looml.dashboard.lookml"
 
 datagroup: gowri_1_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
