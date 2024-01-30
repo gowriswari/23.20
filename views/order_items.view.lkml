@@ -1,5 +1,6 @@
 view: order_items {
   sql_table_name: demo_db.order_items ;;
+  #required_access_grants: [explore_testing]
   drill_fields: [id]
 
   dimension: id {
@@ -31,7 +32,9 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
   dimension: sale_price {
+    can_filter: yes
     type: number
+    drill_fields: [choice*, orders.id, inventory_items.id]
     sql: ${TABLE}.sale_price ;;
   }
   dimension: looker_image {
@@ -88,6 +91,9 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [id, orders.id, inventory_items.id]
+    drill_fields: [choice*, orders.id, inventory_items.id]
+  }
+  set: choice {
+    fields: [users.age,count]
   }
 }

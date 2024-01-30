@@ -23,6 +23,7 @@ view: users {
   dimension_group: created {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
+    drill_fields: [created_month,created_year]
     sql: ${TABLE}.created_at ;;
   }
   dimension: email {
@@ -32,6 +33,10 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+  }
+  dimension: conact_testing{
+    type: string
+    sql: concat(${first_name}, ",", " ",${city}) ;;
   }
   dimension: gender {
     type: string
@@ -44,6 +49,11 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    drill_fields: [detail*]
+    link: {
+      label:"Explore top 20 rows"
+      url: "{{ link }}&limit=20"
+    }
   }
   dimension: zip {
     type: zipcode
@@ -51,21 +61,26 @@ view: users {
   }
   measure: count {
     type: count
+    filters: [users.conact_testing: "Ashton\, Ada"]
     drill_fields: [detail*]
+    link: {
+      label:"Explore top 20 rows"
+      url: "{{ link }}&limit=20"
+    }
   }
 
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-	id,
-	first_name,
-	last_name,
-	events.count,
-	orders.count,
-	saralooker.count,
-	sindhu.count,
-	user_data.count
-	]
+  id,
+  first_name,
+  last_name,
+  events.count,
+  orders.count,
+  saralooker.count,
+  sindhu.count,
+  user_data.count
+  ]
   }
 
 }

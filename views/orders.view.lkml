@@ -20,6 +20,7 @@ view: orders {
   }
   dimension: status {
     type: string
+    #required_access_grants: [access_testing]
     sql: ${TABLE}.status ;;
   }
   dimension: user_id {
@@ -30,6 +31,8 @@ view: orders {
   measure: count {
     type: count
     drill_fields: [detail*]
+    #filters: [orders.status: "COMPLETED,CANCELLED",orders.id: ">20"]
+#filters: [orders.id: ">=20 AND <=9"]
   }
 
 

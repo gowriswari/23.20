@@ -12,6 +12,10 @@ datagroup: gowri_1_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+access_grant: testing {
+  user_attribute: gowri_testing
+  allowed_values: ["order_items"]
+}
 
 datagroup: hourly {
   sql_trigger: select substring(sysdate, 1, 13);;
@@ -104,6 +108,7 @@ explore: incremental_pdts_test {}
 explore: ints {}
 
 explore: inventory_items {
+  #sql_always_where: inventory_items.id <10 ;;
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
@@ -112,6 +117,10 @@ explore: inventory_items {
 }
 
 explore: orders {
+#access_filter: {
+  #field: orders.status
+ # user_attribute: status_checking
+#}
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -120,9 +129,8 @@ explore: orders {
 }
 
 explore: order_items {
-  always_filter: {
-    filters: [users.gender:"f"]
-  }
+  #sql_always_having: ${orders.count} < 1 ;;
+  required_access_grants: [testing]
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -232,7 +240,12 @@ explore: test {}
 
 explore: test_space_in_column_name {}
 
-explore: users {}
+explore: users {
+##  access_filter: {
+   ## field: users.city
+    ##user_attribute: gowri_testin
+ ## }
+}
 
 explore: user_data {
   join: users {
