@@ -145,7 +145,7 @@ dimension: gbv_indicator {
   sql: 1000*${sale_price} ;;
 }
 
-########
+#############################################################################
   measure: count {
     type: count
     drill_fields: [choice*, choice1*,orders.id, inventory_items.id]
