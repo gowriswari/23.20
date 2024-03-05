@@ -1,9 +1,11 @@
-
 view: derived_testing {
-  derived_table: {
+ derived_table: {
     sql: select order_items.id as ID,order_items.sale_price as Sales_price from order_items ;;
+    persist_for: "1 hours"
+    indexes: ["id"]
   }
 
+ # datagroup_trigger: "gowri_1_default_datagroup"
   measure: count {
     type: count
     drill_fields: [detail*]
@@ -22,7 +24,7 @@ view: derived_testing {
   set: detail {
     fields: [
         id,
-	sales_price
+  sales_price
     ]
   }
 }

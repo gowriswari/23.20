@@ -7,15 +7,16 @@ include: "/sql_runner_query.view.lkml"
 include: "/locale_test_looml.dashboard.lookml"
 include: "/locale_bug_testing.dashboard.lookml"
 
+
 datagroup: gowri_1_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-access_grant: testing {
-  user_attribute: gowri_testing
-  allowed_values: ["order_items"]
-}
+#access_grant: testing {
+ # user_attribute: gowri_testing
+ # allowed_values: ["order_items"]
+#}
 
 datagroup: hourly {
   sql_trigger: select substring(sysdate, 1, 13);;
@@ -128,9 +129,10 @@ explore: orders {
   }
 }
 
+explore: derived_testing {}
 explore: order_items {
   #sql_always_having: ${orders.count} < 1 ;;
-  required_access_grants: [testing]
+  #required_access_grants: [testing]
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;

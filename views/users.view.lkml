@@ -9,8 +9,13 @@ view: users {
   }
   dimension: age {
     type: number
-    sql: ${TABLE}.age ;;
+    #sql: ${TABLE}.age ;;
+    sql: ${TABLE}.age * 56478367;;
   }
+  dimension: hh_mm_ss {
+    sql: TIME_FORMAT(SEC_TO_TIME(${age}), '%H:%i:%s');;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
